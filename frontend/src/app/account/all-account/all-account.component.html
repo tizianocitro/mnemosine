@@ -1,0 +1,170 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 py-3">
+
+            <div class="row px-3">
+                <button type="button" class="btn btn-light btn-lg bg-white border-secondary" data-toggle="modal"
+                    data-target="#createModal">
+                    <i class="new-icon fas fa-plus"></i> Nuovo
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Inserisci il nome del nuovo account di
+                                    archiviazione</h5>
+                                <button type="button" class="btn btn-light bg-white" data-dismiss="modal"
+                                    aria-label="Close"><i class="fas fa-times bg-white"></i></button>
+                            </div>
+                            <div class="modal-body">
+                                <label for="account-name" class="col-form-label">Nome dell'account di
+                                    archiviazione</label>
+                                <input name="accountCreateModal" [(ngModel)]="accountCreateName" type="text"
+                                    class="form-control" id="account-name" ngModel required pattern="[a-z0-9]*"
+                                    minlength="3" maxlength="24" #accountCreateModal="ngModel">
+
+                                <div *ngIf="accountCreateModal.invalid && accountCreateModal.touched"
+                                    class="alert alert-danger">
+                                    Il nome inserito per l'account di archiviazione non è valido!
+                                </div>
+
+                                <label for="group-name" class="col-form-label">Nome del gruppo di risorse</label>
+                                <input name="groupCreateModal" [(ngModel)]="groupCreateName" type="text"
+                                    class="form-control" id="group-name" ngModel required pattern="^[-\w\._\(\)]+$"
+                                    #groupCreateModal="ngModel">
+
+                                <div *ngIf="groupCreateModal.invalid && groupCreateModal.touched"
+                                    class="alert alert-danger">
+                                    Il nome inserito per il gruppo di risorse non è valido!
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+                                <button [disabled]="accountCreateModal.invalid || groupCreateModal.invalid"
+                                    (click)="create()" type="button" data-dismiss="modal"
+                                    class="btn btn-primary">Crea</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <div class="col-lg-9 py-3">
+            <div class="row border-bottom px-3">
+                <h3>Tutti i miei account di archiviazione</h3>
+            </div>
+
+            <nav class="bg white py-3" aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="bc breadcrumb-item bg-white" aria-current="page">
+                        <a (click)="goToGroups()" class="no-und text-secondary">
+                            / Gruppi di risorse
+                        </a>
+                    </li>
+                    <li class="bc breadcrumb-item active bg-white" aria-current="page">Account di archiviazione</li>
+                </ol>
+            </nav>
+
+            <div *ngIf="allAccountsList">
+                <div class="row mb-4">
+                    <div *ngFor="let storageAccount of allAccountsList.data.accounts">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <button style="width: 380px; height: 85px;" type="button"
+                                class="btn btn-light bg-white btn-lg border-secondary">
+                                <button style="width: 250px; overflow: auto;"
+                                    (click)="goToContainers(storageAccount.groupName, storageAccount.accountName)"
+                                    type="button" class="btn btn-light bg-white btn-lg border-white">
+                                    <span class="btn-group">
+                                        <span class="fs badge bg-white border-white border-0">
+                                            <i class="fas fa-folder"></i>
+                                        </span>
+                                    </span>
+                                    {{storageAccount.accountName}}
+                                </button>
+
+                                <span class="btn-group dropend">
+                                    <button class="btn btn-light bg-white border-white dropdown-toggle no-arrow"
+                                        type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a (click)="delete(storageAccount.groupName, storageAccount.accountName)"
+                                                class="dropdown-item">Elimina</a></li>
+                                        <li>
+                                            <a (click)="info(storageAccount.groupName, storageAccount.accountName)"
+                                                class="dropdown-item" data-toggle="modal" data-target="#infoModal">
+                                                Visualizza dettagli
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </button>
+                        </div>
+                    </div> <!-- Chiusura ngFor -->
+                </div> <!-- Chiusura row -->
+            </div>
+        </div>
+
+        <!-- infoModal -->
+        <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div *ngIf="accountInfo">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <span class="btn-group">
+                                    <span class="fs badge bg-white border-white border-0">
+                                        <i class="fas fa-folder"></i>
+                                    </span>
+                                </span>
+                                {{accountInfo.data.accountName}}
+                            </h5>
+                            <button type="button" class="btn btn-light bg-white" data-dismiss="modal"
+                                aria-label="Close"><i class="fas fa-times bg-white"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Nome dell'account di archiviazione</th>
+                                        <td>{{accountInfo.data.accountName}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Tipo</th>
+                                        <td>Account di archiviazione</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Gruppo di risorse</th>
+                                        <td>{{accountInfo.data.groupName}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Data di creazione</th>
+                                        <td>{{accountInfo.data.creationDate}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Regione</th>
+                                        <td>{{accountInfo.data.region}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Chiudi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Chiusura row-->
+</div> <!-- Chiusura container-->

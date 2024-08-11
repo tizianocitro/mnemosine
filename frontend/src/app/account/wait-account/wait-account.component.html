@@ -1,0 +1,105 @@
+<div class="jumbotron jumbotron-fluid text-center bg-white">
+    <div class="container-fluid">
+        <div *ngIf="operation === 'save'">
+            <div *ngIf="createdAccount; else createElseBlock">
+                <div class="cont">
+                    <span class="success-icon text-succes"><i class="far fa-check-circle"></i></span>
+                </div>
+
+                <div *ngIf="!hasAnErrorOccurred">
+                    <h2 class="display-4">
+                        Il tuo nuovo account
+                        <strong>{{createdAccount.data.accountName}}</strong>
+                        è stato creato con succeso
+                    </h2>
+                </div>
+
+                <div *ngIf="hasAnErrorOccurred">
+                    <h2 class="display-4">
+                        Ops! Si è verificato un errore!
+                    </h2>
+                </div>
+
+                <button (click)="goToAccounts()" class="btn btn-large btn-primary m-t">I miei account di
+                    archiviazione</button>
+            </div>
+
+            <ng-template #createElseBlock>
+                <div class="cont">
+                    <div class="loader">
+                        <span style="--i:1;"></span>
+                        <span style="--i:2;"></span>
+                        <span style="--i:3;"></span>
+                        <span style="--i:4;"></span>
+                        <span style="--i:5;"></span>
+                        <span style="--i:6;"></span>
+                        <span style="--i:7;"></span>
+                        <span style="--i:8;"></span>
+                        <span style="--i:9;"></span>
+                        <span style="--i:10;"></span>
+                        <span style="--i:11;"></span>
+                        <span style="--i:12;"></span>
+                        <span style="--i:13;"></span>
+                        <span style="--i:14;"></span>
+                        <span style="--i:15;"></span>
+                        <span style="--i:16;"></span>
+                        <span style="--i:17;"></span>
+                        <span style="--i:18;"></span>
+                        <span style="--i:19;"></span>
+                        <span style="--i:20;"></span>
+                    </div>
+                </div>
+
+                <h2 class="display-4">Attendi mentre creiamo il tuo nuovo account di archiviazione</h2>
+            </ng-template>
+        </div>
+
+        <div *ngIf="operation === 'delete'">
+            <div *ngIf="deletedAccount; else deleteElseBlock">
+                <div class="cont">
+                    <span class="success-icon text-succes"><i class="far fa-check-circle"></i></span>
+                </div>
+
+                <div>
+                    <h2 class="display-4">
+                        Il tuo account
+                        <strong>{{deletedAccount.data.deletedAccount}}</strong>
+                        è stato cancellato con successo
+                    </h2>
+                </div>
+
+                <button (click)="goToAccounts()" class="btn btn-large btn-primary m-t">I miei account di
+                    archiviazione</button>
+            </div>
+
+            <ng-template #deleteElseBlock>
+                <div class="cont">
+                    <div class="loader">
+                        <span style="--i:1;"></span>
+                        <span style="--i:2;"></span>
+                        <span style="--i:3;"></span>
+                        <span style="--i:4;"></span>
+                        <span style="--i:5;"></span>
+                        <span style="--i:6;"></span>
+                        <span style="--i:7;"></span>
+                        <span style="--i:8;"></span>
+                        <span style="--i:9;"></span>
+                        <span style="--i:10;"></span>
+                        <span style="--i:11;"></span>
+                        <span style="--i:12;"></span>
+                        <span style="--i:13;"></span>
+                        <span style="--i:14;"></span>
+                        <span style="--i:15;"></span>
+                        <span style="--i:16;"></span>
+                        <span style="--i:17;"></span>
+                        <span style="--i:18;"></span>
+                        <span style="--i:19;"></span>
+                        <span style="--i:20;"></span>
+                    </div>
+                </div>
+
+                <h2 class="display-4">Attendi mentre cancelliamo il tuo account di archiviazione</h2>
+            </ng-template>
+        </div>
+    </div>
+</div>

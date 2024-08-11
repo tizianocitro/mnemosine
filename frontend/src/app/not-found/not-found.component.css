@@ -1,0 +1,80 @@
+.box {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    position: relative;
+    background: white;
+}
+
+.box h2 {
+    color: #3b5998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15em;
+    text-shadow: -25px 25px 40px rgba(0, 0, 0, 0.5),
+                 -10px 10px 0 rgba(255, 255, 255, 0.5),
+                 -20px 20px 0 rgba(255, 255, 255, 0.5),
+                 -30px 30px 0 rgba(255, 255, 255, 0.5);
+}
+
+.box h2 .zero {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom, white, #777);
+    border-radius: 50%;
+    margin: 0 15px;
+    box-shadow: -25px 25px 40px rgba(0, 0, 0, 0.5);
+}
+
+.box h2 .zero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(to top, white, #777);
+    border-radius: 50%;
+}
+
+.box h2 .zero::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 1);
+}
+
+.box-text {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5vh;
+    position: relative;
+    background: white;
+}
+
+.box-text h3 {
+    margin-top: -60px;
+    font-size: 3em;
+}
+
+.box-text button {
+    margin-top: -10px;
+}

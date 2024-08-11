@@ -1,0 +1,37 @@
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+a.no-und:link {
+    text-decoration: none;
+}  
+
+a.no-und:visited {  
+    text-decoration: none;
+}
+
+a.no-und:hover {
+    text-decoration: none;
+}
+  
+a.no-und:active {
+    text-decoration: none;
+}
+
+.fs {
+    font-size: 25px;
+}
+
+.bc {
+    font-size: 20px;
+}
+
+.new-icon {
+    color: #32CD32;
+}
+
+.no-arrow::after {
+    content: none;
+}
